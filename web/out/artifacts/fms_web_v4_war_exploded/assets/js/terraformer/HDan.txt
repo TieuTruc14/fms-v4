@@ -1,1 +1,0 @@
-Dùng để hỗ trợ chuyển đổi các layer của leaflet sang WKT để lưu trữ database và ngược lại từ DB hiển thị biểu đồ
