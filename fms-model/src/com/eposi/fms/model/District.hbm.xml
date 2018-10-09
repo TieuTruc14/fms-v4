@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.District" table="tbl_district">
+        <id name="id" type="string" column="id" length="25">
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string"   column="name" />
+        <property name="fullName" type="string"   column="fullName" />
+        <many-to-one name="province"     class="com.eposi.fms.model.Province" lazy="false" column="province" unique="false" not-found="ignore" />
+        <property name="companyCount" type="int" column="companyCount" />
+        <property name="vehicleCount" type="int" column="vehicleCount" />
+        <property name="driverCount" type="int" column="driverCount" />
+    </class>
+</hibernate-mapping>

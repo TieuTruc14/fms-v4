@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.eposi.fms.model.Driver" table="tbl_driver">
+		<id name="id" type="string" column="id" length="20">
+			<generator class="assigned" />
+		</id>
+
+		<property name="name" type="string" column="name" not-null="true" length="50" />
+		<property name="phone" type="string" column="phone" length="20" />
+		<many-to-one name="company" class="com.eposi.fms.model.Company" lazy="false" cascade="none" column="company" unique="false" />
+        <property name="licenceKey" type="string" column="licenceKey" length="20" />
+        <property name="licenceDay" type="java.util.Date" column="licenceDay" length="20" />
+        <property name="licenceExp" type="java.util.Date" column="licenceExp" length="20" />
+		<property column="aggregation" length="10" name="aggregation"  type="string" />
+
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.fms.model.Company" table="tbl_company">
+		<id column="id" length="25" name="id" type="string">
+			<generator class="assigned" />
+		</id>
+		<property column="name" length="128" name="name" not-null="true" type="string" />
+		<property name="konexyId" type="string" column="konexyId" />
+		<property name="aggregation" type="string" column="aggregation" />
+	</class>
+</hibernate-mapping>

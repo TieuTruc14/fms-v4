@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Batch" table="tbl_batch">
+        <id name="id" length="32" type="string" column="id">
+            <generator class="assigned" />
+        </id>
+        <property name="code" type="string"                 column="code" />
+        <property name="name" type="string"                column="name" />
+        <property name="dateStart" type="java.util.Date"   column="dateStart" not-null="false" />
+        <property name="dateEnd" type="java.util.Date"     column="dateEnd" not-null="false" />
+        <many-to-one name="model" class="com.eposi.fms.model.Model" lazy="false" cascade="none" column="model" unique="false" not-null="false" not-found="ignore" />
+        <property name="deviceCount" type="int"            column="deviceCount" />
+        <property name="description" type="string"         column="description" />
+        <property name="userCreated"     type="string"     column="userCreated"  length="128" />
+        <property name="userUpdated"     type="string"     column="userUpdated"  length="128" />
+        <property name="companyId"     type="string"       column="companyId"    length="15" />
+        <property name="dateCreated" type="java.util.Date" column="dateCreated" not-null="false" />
+        <property name="dateUpdated" type="java.util.Date" column="dateUpdated" not-null="false" />
+        <property name="locked"      type="boolean"      column="locked" not-null="false" />
+        <property name="konexyId"     type="string"       column="konexyId"    length="15" />
+    </class>
+</hibernate-mapping>

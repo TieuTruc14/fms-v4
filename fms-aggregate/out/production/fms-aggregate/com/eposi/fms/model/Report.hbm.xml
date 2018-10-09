@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.fms.model.Report" table="tbl_report">
+		<id column="id" length="25" name="id" type="string">
+			<generator class="assigned" />
+		</id>
+		<property column="trip" length="15" name="trip"  type="string" />
+		<property column="stop" length="15" name="stop"  type="string" />
+		<property column="os"   length="15" name="os"  type="string" />
+		<property column="over10h" length="15" name="over10h"  type="string" />
+		<property column="over4h" length="15" name="over4h"  type="string" />
+		<property column="log" length="15" name="log"  type="string" />
+		<property column="xmit" length="15" name="xmit"  type="string" />
+		<property column="sumxmit" length="15" name="sumxmit"  type="string" />
+		<property column="aggregation" length="15" name="aggregation"  type="string" />
+	</class>
+</hibernate-mapping>

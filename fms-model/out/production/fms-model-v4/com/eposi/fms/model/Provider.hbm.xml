@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.eposi.fms.model.Provider" table="tbl_provider">
+		<id name="id" type="int" column="id">
+			<generator class="assigned" />
+		</id>
+
+		<property name="name" type="string" column="name" length="128" not-null="true" />
+		<property name="address" type="string" column="address" length="200" />
+		<property name="web" type="string" column="web" length="80"  />
+		<property name="mail" type="string" column="mail" length="80" />
+		<property name="tel" type="string" column="tel" length="15" />
+		<property name="fax" type="string" column="fax" length="15"  />
+		<property name="description" type="string" column="description" length="200" />
+
+        <property name="deviceCount" type="int" column="deviceCount" />
+        <property name="amqp" type="string" column="amqp" length="255" not-null="false" />
+
+        <property name="vehicleCount" type="java.lang.Integer" column="vehicleCount" />
+	</class>
+</hibernate-mapping>

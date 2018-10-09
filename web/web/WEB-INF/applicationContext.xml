@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hz="http://www.hazelcast.com/schema/spring"
+	xmlns:s="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-4.1.xsd
+          http://www.hazelcast.com/schema/spring
+          http://www.hazelcast.com/schema/spring/hazelcast-spring-3.4.xsd">
+
+	<!-- HTTP security configuration -->
+    <s:http pattern="/assets/**" security="none"/>
+    <s:http pattern="/login.action" security="none"/>
+    <s:http auto-config='true' use-expressions="true">
+
+        <!--Management-->
+        <s:intercept-url pattern="/manage/company/list.action" access="hasAnyRole('COMPANY_VIEW')" />
+        <s:intercept-url pattern="/manage/company/addnew.action" access="hasAnyRole('COMPANY_VIEW')" />
+        <s:intercept-url pattern="/manage/company/detail.action" access="hasAnyRole('COMPANY_VIEW')" />
+        <s:intercept-url pattern="/manage/company/edit.action" access="hasAnyRole('COMPANY_VIEW')" />
+        <s:intercept-url pattern="/manage/company/activity.action" access="hasAnyRole('COMPANY_VIEW')" />
+
+        <s:intercept-url pattern="/**" access="isAuthenticated()" />
+        <s:form-login login-page="/login.action?request_locale=vi_VN" default-target-url="/index.action" login-processing-url="/j_spring_security_check" always-use-default-target="true"
+                      username-parameter="username" password-parameter="password" />
+        <s:anonymous />
+        <s:logout logout-success-url="/" logout-url="/j_spring_security_logout" />
+        <s:csrf disabled="true"/>
+    </s:http>
+
+    <s:authentication-manager><s:authentication-provider user-service-ref="beanFmsUserDetailsService" /></s:authentication-manager>
+    <bean id="beanFmsUserDetailsService" class="com.eposi.fms.security.FmsUserDetailsService" scope="singleton" />
+
+	<!-- STRUTS2 ACTION -->
+    <bean id="beanListProvinceInterceptor" class="com.eposi.fms.web.ListProvinceInterceptor" scope="prototype" />
+    <bean id="beanListCompanyInterceptor" class="com.eposi.fms.web.ListCompanyInterceptor" scope="prototype" />
+    <bean id="beanListVehicleInterceptor" class="com.eposi.fms.web.ListVehicleInterceptor" scope="prototype" />
+    <bean id="beanListVehicleOfCompanyInterceptor" class="com.eposi.fms.web.ListVehicleOfCompanyInterceptor" scope="prototype" />
+    <bean id="beanListDriverOfCompanyInterceptor" class="com.eposi.fms.web.ListDriverOfCompanyInterceptor" scope="prototype" />
+    <bean id="beanListDeviceOfCompanyInterceptor" class="com.eposi.fms.web.ListDeviceOfCompanyInterceptor" scope="prototype" />
+    <bean id="beanListFuelTypeInterceptor" class="com.eposi.fms.web.ListFuelTypeInterceptor" scope="prototype" />
+    <bean id="beanRequestParametersNormalizationInterceptor" class="com.eposi.fms.web.RequestParametersNormalizationInterceptor" scope="prototype" />
+    <bean id="beanListContractTypeInterceptor" class="com.eposi.fms.web.ListContractTypeInterceptor" scope="prototype" />
+    <bean id="beanListTransportTypeInterceptor" class="com.eposi.fms.web.ListTransportTypeInterceptor" scope="prototype" />
+    <bean id="beanListModelInterceptor" class="com.eposi.fms.web.ListModelInterceptor" scope="prototype"/>
+    <bean id="beanListProductTypeInterceptor" class="com.eposi.fms.web.ListProductTypeInterceptor" scope="prototype"/>
+    <bean id="beanListCustomerTypeInterceptor" class="com.eposi.fms.web.ListCustomerTypeInterceptor" scope="prototype" />
+    <bean id="beanListFirnwareInterceptor" class="com.eposi.fms.web.ListFirmwareInterceptor" scope="prototype"/>
+    <bean id="beanListBatchInterceptor" class="com.eposi.fms.web.ListBatchInterceptor" scope="prototype" />
+    <bean id="beanListOrganizationByUserInterceptor" class="com.eposi.fms.web.ListOrganizationByUserInterceptor" scope="prototype"/>
+
+    <!--Login -->
+    <bean id="beanLoginAction"  class="com.eposi.fms.web.login.LoginAction" scope="prototype" />
+
+    <!-- Report Company -->
+    <bean id="beanBatchXmitAction"  class="com.eposi.fms.reporting.company.BatchXmitAction" scope="prototype" />
+    <bean id="beanSummaryBatchXmitAction"  class="com.eposi.fms.reporting.company.SummaryBatchXmitAction" scope="prototype" />
+    <bean id="beanSummaryXmitNationAction"  class="com.eposi.fms.reporting.company.SummaryXmitNationAction" scope="prototype" />
+    <bean id="beanSummaryXmitCompanyAction" class="com.eposi.fms.reporting.company.SummaryXmitCompanyAction" scope="prototype" />
+    <bean id="beanSummaryXmitVehicleAction" class="com.eposi.fms.reporting.company.SummaryXmitVehicleAction" scope="prototype" />
+
+    <!-- Catalog -->
+    <bean id="beanCatalogContractAction" class="com.eposi.fms.web.catalog.contract.CatalogContractAction" scope="prototype"/>
+    <bean id="beanCatalogContractDetailAction" class="com.eposi.fms.web.catalog.contract.CatalogContractDetailAction" scope="prototype"/>
+    <bean id="beanCatalogContractAddNewAction" class="com.eposi.fms.web.catalog.contract.CatalogContractAddNewAction" scope="prototype"/>
+    <bean id="beanCatalogContractAddNewSaveAction" class="com.eposi.fms.web.catalog.contract.CatalogContractAddNewSaveAction" scope="prototype"/>
+    <bean id="beanCatalogContractEditSaveAction" class="com.eposi.fms.web.catalog.contract.CatalogContractEditSaveAction" scope="prototype"/>
+
+    <bean id="beanFuelTypeAction" class="com.eposi.fms.web.catalog.fuel.FuelTypeAction" scope="prototype"/>
+    <bean id="beanFuelTypeDetailAction" class="com.eposi.fms.web.catalog.fuel.FuelTypeDetailAction" scope="prototype"/>
+    <bean id="beanFuelTypeAddNewAction" class="com.eposi.fms.web.catalog.fuel.FuelTypeAddNewAction" scope="prototype"/>
+    <bean id="beanFuelTypeAddNewSaveAction" class="com.eposi.fms.web.catalog.fuel.FuelTypeAddNewSaveAction" scope="prototype"/>
+    <bean id="beanFuelTypeEditSaveAction" class="com.eposi.fms.web.catalog.fuel.FuelTypeEditSaveAction" scope="prototype"/>
+
+    <bean id="beanCatalogTransportAction" class="com.eposi.fms.web.catalog.transport.CatalogTransportAction" scope="prototype"/>
+    <bean id="beanCatalogTransportDetailAction" class="com.eposi.fms.web.catalog.transport.CatalogTransportDetailAction" scope="prototype"/>
+    <bean id="beanCatalogTransportAddNewAction" class="com.eposi.fms.web.catalog.transport.CatalogTransportAddNewAction" scope="prototype"/>
+    <bean id="beanCatalogTransportAddNewSaveAction" class="com.eposi.fms.web.catalog.transport.CatalogTransportAddNewSaveAction" scope="prototype"/>
+    <bean id="beanCatalogTransportEditSaveAction" class="com.eposi.fms.web.catalog.transport.CatalogTransportEditSaveAction" scope="prototype"/>
+
+    <bean id="beanCatalogFirmwareAction" class="com.eposi.fms.web.catalog.firmware.CatalogFirmwareAction" scope="prototype"/>
+    <bean id="beanCatalogFirmwareDetailAction" class="com.eposi.fms.web.catalog.firmware.CatalogFirmwareDetailAction" scope="prototype"/>
+    <bean id="beanCatalogFirmwareAddNewAction" class="com.eposi.fms.web.catalog.firmware.CatalogFirmwareAddNewAction" scope="prototype"/>
+    <bean id="beanCatalogFirmwareAddNewSaveAction" class="com.eposi.fms.web.catalog.firmware.CatalogFirmwareAddNewSaveAction" scope="prototype"/>
+    <bean id="beanCatalogFirmwareEditSaveAction" class="com.eposi.fms.web.catalog.firmware.CatalogFirmwareEditSaveAction" scope="prototype"/>
+
+    <bean id="beanCatalogModelAction" class="com.eposi.fms.web.catalog.model.CatalogModelAction" scope="prototype"/>
+    <bean id="beanCatalogModelDetailAction" class="com.eposi.fms.web.catalog.model.CatalogModelDetailAction" scope="prototype"/>
+    <bean id="beanCatalogModelAddNewAction" class="com.eposi.fms.web.catalog.model.CatalogModelAddNewAction" scope="prototype"/>
+    <bean id="beanCatalogModelAddNewSaveAction" class="com.eposi.fms.web.catalog.model.CatalogModelAddNewSaveAction" scope="prototype"/>
+    <bean id="beanCatalogModelEditSaveAction" class="com.eposi.fms.web.catalog.model.CatalogModelEditSaveAction" scope="prototype"/>
+
+    <bean id="beanCatalogProductAction" class="com.eposi.fms.web.catalog.product.CatalogProductAction" scope="prototype"/>
+    <bean id="beanCatalogProductDetailAction" class="com.eposi.fms.web.catalog.product.CatalogProductDetailAction" scope="prototype"/>
+    <bean id="beanCatalogProductAddNewAction" class="com.eposi.fms.web.catalog.product.CatalogProductAddNewAction" scope="prototype"/>
+    <bean id="beanCatalogProductAddNewSaveAction" class="com.eposi.fms.web.catalog.product.CatalogProductAddNewSaveAction" scope="prototype"/>
+    <bean id="beanCatalogProductEditSaveAction" class="com.eposi.fms.web.catalog.product.CatalogProductEditSaveAction" scope="prototype"/>
+
+    <bean id="beanCatalogCustomerAction" class="com.eposi.fms.web.catalog.customer.CatalogCustomerAction" scope="prototype"/>
+    <bean id="beanCatalogCustomerDetailAction" class="com.eposi.fms.web.catalog.customer.CatalogCustomerDetailAction" scope="prototype"/>
+    <bean id="beanCatalogCustomerAddNewAction" class="com.eposi.fms.web.catalog.customer.CatalogCustomerAddNewAction" scope="prototype"/>
+    <bean id="beanCatalogCustomerAddNewSaveAction" class="com.eposi.fms.web.catalog.customer.CatalogCustomerAddNewSaveAction" scope="prototype"/>
+    <bean id="beanCatalogCustomerEditSaveAction" class="com.eposi.fms.web.catalog.customer.CatalogCustomerEditSaveAction" scope="prototype"/>
+
+    <!--ADMIN.DASHBOARD -->
+    <bean id="beanDashboardAction"  class="com.eposi.fms.web.admin.dashboard.DashboardAction" scope="prototype" />
+
+    <!--ADMIN.User -->
+    <bean id="beanUserListingAction"  class="com.eposi.fms.web.admin.user.UserListingAction" scope="prototype" />
+    <bean id="beanUserEditAction"     class="com.eposi.fms.web.admin.user.UserEditAction" scope="prototype" />
+    <bean id="beanUserDetailAction"   class="com.eposi.fms.web.admin.user.UserDetailAction" scope="prototype" />
+    <bean id="beanUserRemoveAuthenAction"  class="com.eposi.fms.web.admin.user.UserRemoveAuthenAction" scope="prototype" />
+    <bean id="beanUserAddAuthenAction"     class="com.eposi.fms.web.admin.user.UserAddAuthenAction" scope="prototype" />
+    <bean id="beanUserAddAuthenSaveAction"     class="com.eposi.fms.web.admin.user.UserAddAuthenSaveAction" scope="prototype" />
+    <bean id="beanUserAddnewAction"        class="com.eposi.fms.web.admin.user.UserAddnewAction" scope="prototype" />
+    <bean id="beanUserAddnewSaveAction"        class="com.eposi.fms.web.admin.user.UserAddnewSaveAction" scope="prototype" />
+    <bean id="beanChangePasswordAction"        class="com.eposi.fms.web.admin.user.ChangePasswordAction" scope="prototype" />
+    <bean id="beanChangeMyPasswordAction"        class="com.eposi.fms.web.admin.user.ChangeMyPasswordAction" scope="prototype" />
+    <bean id="beanUserActivityAction"  class="com.eposi.fms.web.admin.user.UserActivityAction" scope="prototype" />
+
+    <!--GroupGrant -->
+    <bean id="beanGroupListAction"  class="com.eposi.fms.web.admin.manage.grant.GroupListAction" scope="prototype" />
+    <bean id="beanGroupAddSaveAction"  class="com.eposi.fms.web.admin.manage.grant.GroupAddSaveAction" scope="prototype" />
+    <bean id="beanGroupEditAction"  class="com.eposi.fms.web.admin.manage.grant.GroupEditAction" scope="prototype" />
+    <bean id="beanGroupGrantAction"  class="com.eposi.fms.web.admin.manage.grant.GroupGrantAction" scope="prototype" />
+    <bean id="beanGroupGrantSaveAction"  class="com.eposi.fms.web.admin.manage.grant.GroupGrantSaveAction" scope="prototype" />
+
+    <!-- Orgazation -->
+    <bean id="beanOrgazationListingAction" class="com.eposi.fms.web.admin.manage.organization.OrgazationListingAction" scope="prototype" />
+    <bean id="beanOrgazationAddNewAction" class="com.eposi.fms.web.admin.manage.organization.OrgazationAddNewAction" scope="prototype" />
+    <bean id="beanOrgazationAddNewSaveAction" class="com.eposi.fms.web.admin.manage.organization.OrgazationAddNewSaveAction" scope="prototype" />
+    <bean id="beanOrgazationDetailAction" class="com.eposi.fms.web.admin.manage.organization.OrgazationDetailAction" scope="prototype" />
+    <bean id="beanOrgazationEditAction" class="com.eposi.fms.web.admin.manage.organization.OrgazationEditAction" scope="prototype" />
+
+    <!-- Company -->
+    <bean id="beanCompanyListingAction" class="com.eposi.fms.web.admin.manage.company.CompanyListingAction" scope="prototype" />
+    <bean id="beanCompanyDetailAction" class="com.eposi.fms.web.admin.manage.company.CompanyDetailAction" scope="prototype" />
+    <bean id="beanCompanyEditAction" class="com.eposi.fms.web.admin.manage.company.CompanyEditAction" scope="prototype" />
+    <bean id="beanCompanyEditSaveAction" class="com.eposi.fms.web.admin.manage.company.CompanyEditSaveAction" scope="prototype" />
+    <bean id="beanCompanyAddNewAction" class="com.eposi.fms.web.admin.manage.company.CompanyAddNewAction" scope="prototype" />
+    <bean id="beanCompanyAddNewSaveAction" class="com.eposi.fms.web.admin.manage.company.CompanyAddNewSaveAction" scope="prototype" />
+    <bean id="beanCompanyActivityAction" class="com.eposi.fms.web.admin.manage.company.CompanyActivityAction" scope="prototype" />
+    <bean id="beanCompanyCheckPhoneJsonAction" class="com.eposi.fms.web.admin.manage.company.CompanyCheckPhoneJsonAction" scope="prototype" />
+    <bean id="beanCompanyLockInforAction" class="com.eposi.fms.web.admin.manage.company.CompanyLockInforAction" scope="prototype" />
+    <bean id="beanCompanyUnlockInforAction" class="com.eposi.fms.web.admin.manage.company.CompanyUnlockInforAction" scope="prototype" />
+
+    <!-- Batch -->
+    <bean id="beanBatchAction" class="com.eposi.fms.web.admin.store.batch.BatchAction" scope="prototype"/>
+    <bean id="beanBatchDetailAction" class="com.eposi.fms.web.admin.store.batch.BatchDetailAction" scope="prototype"/>
+    <bean id="beanBatchAddNewAction" class="com.eposi.fms.web.admin.store.batch.BatchAddNewAction" scope="prototype"/>
+    <bean id="beanBatchAddNewSaveAction" class="com.eposi.fms.web.admin.store.batch.BatchAddNewSaveAction" scope="prototype"/>
+    <bean id="beanBatchEditSaveAction" class="com.eposi.fms.web.admin.store.batch.BatchEditSaveAction" scope="prototype"/>
+    <bean id="beanBatchEditAction" class="com.eposi.fms.web.admin.store.batch.BatchEditAction" scope="prototype"/>
+    <bean id="beanBatchDeviceAddNewSaveAction" class="com.eposi.fms.web.admin.store.batch.device.BatchDeviceAddNewSaveAction" scope="prototype"/>
+    <bean id="beanBatchDeviceEditSaveAction" class="com.eposi.fms.web.admin.store.batch.device.BatchDeviceEditSaveAction" scope="prototype"/>
+    <bean id="beanDeviceAddFromExcelAction" class="com.eposi.fms.web.admin.store.batch.device.DeviceAddFromExcelAction" scope="prototype"/>
+
+    <!-- Device-->
+    <bean id="beanDeviceListingAction" class="com.eposi.fms.web.admin.store.device.DeviceListingAction" scope="prototype"/>
+    <bean id="beanDeviceDetailAction" class="com.eposi.fms.web.admin.store.device.DeviceDetailAction" scope="prototype"/>
+
+    <bean id="beanDeviceEditSaveAction" class="com.eposi.fms.web.admin.store.device.DeviceEditSaveAction" scope="prototype"/>
+    <bean id="beanDeviceActivityAction" class="com.eposi.fms.web.admin.store.device.DeviceActivityAction" scope="prototype" />
+    <bean id="beanDeviceNoteAction" class="com.eposi.fms.web.admin.store.device.DeviceNoteAction" scope="prototype" />
+
+    <!--Stock-->
+    <bean id="beanStockOutAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutAction" scope="prototype"/>
+    <bean id="beanStockOutAddSaveAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutAddSaveAction" scope="prototype"/>
+    <bean id="beanStockOutDetailAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutDetailAction" scope="prototype"/>
+    <bean id="beanStockOutConfirmAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutConfirmAction" scope="prototype"/>
+    <bean id="beanStockOutEditSaveAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutEditSaveAction" scope="prototype"/>
+    <bean id="beanStockOutEditAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutEditAction" scope="prototype"/>
+    <bean id="beanStockOutAddDeviceAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutAddDeviceAction" scope="prototype"/>
+    <bean id="beanStockOutAddDeviceSaveAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutAddDeviceSaveAction" scope="prototype"/>
+    <bean id="beanStockOutDeleteStockDetailAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutDeleteStockDetailAction" scope="prototype"/>
+    <bean id="beanStockOutAddDeviceFromExcelAction" class="com.eposi.fms.web.admin.store.device.stock.StockOutAddDeviceFromExcelAction" scope="prototype"/>
+
+    <bean id="beanStockInAction" class="com.eposi.fms.web.admin.store.device.stock.StockInAction" scope="prototype"/>
+    <bean id="beanStockInventoryAction" class="com.eposi.fms.web.admin.store.device.stock.StockInventoryAction" scope="prototype"/>
+    <bean id="beanStockInventoryDetailAction" class="com.eposi.fms.web.admin.store.device.stock.StockInventoryDetailAction" scope="prototype"/>
+    <bean id="beanStockInDetailAction" class="com.eposi.fms.web.admin.store.device.stock.StockInDetailAction" scope="prototype"/>
+    <bean id="beanStockInReceiveAction" class="com.eposi.fms.web.admin.store.device.stock.StockInReceiveAction" scope="prototype"/>
+    <bean id="beanStockInUnReceiveAction" class="com.eposi.fms.web.admin.store.device.stock.StockInUnReceiveAction" scope="prototype"/>
+    <bean id="beanStockDeleteAction" class="com.eposi.fms.web.admin.store.device.stock.StockDeleteAction" scope="prototype"/>
+
+    <bean id="beanStockRecoveryDeviceAction" class="com.eposi.fms.web.admin.store.device.stock.StockRecoveryDeviceAction" scope="prototype"/>
+    <bean id="beanStockRecoveryDeviceSaveAction" class="com.eposi.fms.web.admin.store.device.stock.StockRecoveryDeviceSaveAction" scope="prototype"/>
+
+    <!--Vehicle -->
+    <bean id="beanVehicleActivityAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleActivityAction" scope="prototype" />
+    <bean id="beanVehicleListingAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleListingAction" scope="prototype" />
+    <bean id="beanVehicleEditAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleEditAction" scope="prototype" />
+    <bean id="beanVehicleAddNewAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleAddNewAction" scope="prototype" />
+    <bean id="beanVehicleDetailAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleDetailAction" scope="prototype" />
+    <bean id="beanVehicleAddNewSaveAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleAddNewSaveAction" scope="prototype" />
+    <bean id="beanVehicleChangeAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleChangeAction" scope="prototype" />
+    <bean id="beanVehicleEditChangeAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleEditChangeAction" scope="prototype" />
+    <bean id="beanVehicleAddDeviceAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleAddDeviceAction" scope="prototype" />
+    <bean id="beanVehicleRemoveDeviceAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleRemoveDeviceAction" scope="prototype" />
+    <bean id="beanDeviceInVehicleJsonAction" class="com.eposi.fms.web.admin.manage.vehicle.DeviceInVehicleJsonAction" scope="prototype" />
+    <bean id="beanVehicleChangeCompanyAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleChangeCompanyAction" scope="prototype" />
+    <bean id="beanVehicleNoteAction" class="com.eposi.fms.web.admin.manage.vehicle.VehicleNoteAction" scope="prototype" />
+
+    <!-- Driver -->
+    <bean id="beanDriverListingAction" class="com.eposi.fms.web.admin.manage.driver.DriverListingAction" scope="prototype"/>
+    <bean id="beanDriverDetailAction" class="com.eposi.fms.web.admin.manage.driver.DriverDetailAction" scope="prototype"/>
+    <bean id="beanDriverEditAction" class="com.eposi.fms.web.admin.manage.driver.DriverEditAction" scope="prototype"/>
+    <bean id="beanDriverAddNewAction" class="com.eposi.fms.web.admin.manage.driver.DriverAddNewAction" scope="prototype"/>
+    <bean id="beanDriverAddNewSaveAction" class="com.eposi.fms.web.admin.manage.driver.DriverAddNewSaveAction" scope="prototype"/>
+    <bean id="beanDriverChangeCompanyAction" class="com.eposi.fms.web.admin.manage.driver.DriverChangeCompanyAction" scope="prototype"/>
+    <bean id="beanListVehiclesJsonAction" class="com.eposi.fms.web.admin.manage.vehicle.ListVehiclesJsonAction" scope="prototype"/>
+
+    <!-- Contact-->
+    <bean id="beanContactAddNewAction" class="com.eposi.fms.web.admin.manage.contact.ContactAddNewAction" scope="prototype"/>
+    <bean id="beanContactAddNewSaveAction" class="com.eposi.fms.web.admin.manage.contact.ContactAddNewSaveAction" scope="prototype"/>
+    <bean id="beanContactDetailAction" class="com.eposi.fms.web.admin.manage.contact.ContactDetailAction" scope="prototype"/>
+    <bean id="beanContactEditAction" class="com.eposi.fms.web.admin.manage.contact.ContactEditAction" scope="prototype"/>
+
+    <!--ADMIN.contract-->
+    <bean id="beanContractListingAction" class="com.eposi.fms.web.admin.manage.contract.ContractListingAction" scope="prototype" />
+    <bean id="beanContractAddNewSaveAction" class="com.eposi.fms.web.admin.manage.contract.ContractAddNewSaveAction" scope="prototype" />
+    <bean id="beanContractEditSaveAction" class="com.eposi.fms.web.admin.manage.contract.ContractEditSaveAction" scope="prototype" />
+    <bean id="beanContractDetailAction" class="com.eposi.fms.web.admin.manage.contract.ContractDetailAction" scope="prototype" />
+    <bean id="beanContractCensoredListAction" class="com.eposi.fms.web.admin.manage.contract.ContractCensoredListAction" scope="prototype" />
+    <bean id="beanContractCensoredAllAction" class="com.eposi.fms.web.admin.manage.contract.ContractCensoredAllAction" scope="prototype" />
+    <bean id="beanContractCensoredSaveAction" class="com.eposi.fms.web.admin.manage.contract.ContractCensoredSaveAction" scope="prototype" />
+
+    <!--Log -->
+    <bean id="beanLogAction" class="com.eposi.fms.web.admin.log.LogAction" scope="prototype"/>
+
+    <!--Province -->
+    <bean id="beanProvinceDetailAction" class="com.eposi.fms.web.admin.manage.frontiers.province.ProvinceDetailAction" scope="prototype" />
+    <bean id="beanProvinceListingAction" class="com.eposi.fms.web.admin.manage.frontiers.province.ProvinceListingAction" scope="prototype" />
+
+    <!--District -->
+    <bean id="beanGetListJsonByProvinceAction" class="com.eposi.fms.web.admin.manage.frontiers.district.GetListJsonDistrictByProvinceAction" scope="prototype" />
+    <bean id="beanDistrictListingAction" class="com.eposi.fms.web.admin.manage.frontiers.district.DistrictListingAction" scope="prototype" />
+
+    <!--commune -->
+    <bean id="beanGetListJsonByDistrictAction" class="com.eposi.fms.web.admin.manage.frontiers.commune.GetListJsonCommuneByDistrictAction" scope="prototype" />
+    <bean id="beanCommuneListingAction" class="com.eposi.fms.web.admin.manage.frontiers.commune.CommuneListingAction" scope="prototype" />
+
+    <!--Text -->
+    <bean id="beanTextListingAction" class="com.eposi.fms.web.admin.manage.view.TextListingAction" scope="prototype" />
+    <bean id="beanTextDetailAction" class="com.eposi.fms.web.admin.manage.view.TextDetailAction" scope="prototype" />
+    <bean id="beanTextEditSaveAction" class="com.eposi.fms.web.admin.manage.view.TextEditSaveAction" scope="prototype" />
+
+    <!--Report -->
+    <bean id="beanNationAction" class="com.eposi.fms.web.admin.report.NationAction" scope="prototype" />
+    <bean id="beanSystemActivityAction" class="com.eposi.fms.web.admin.report.SystemActivityAction" scope="prototype" />
+
+    <!-- FEEDBACK-->
+    <bean id="beanFeedbackAction" class="com.eposi.fms.web.feedback.FeedbackAction" scope="prototype" />
+    <bean id="beanFeedBackSuccessAction" class="com.eposi.fms.web.feedback.FeedBackSuccessAction" scope="prototype" />
+    <bean id="beanFeedBackListingAction" class="com.eposi.fms.web.admin.manage.feedback.FeedBackListingAction" scope="prototype" />
+    <bean id="beanFeedBackDeleteAction" class="com.eposi.fms.web.admin.manage.feedback.FeedBackDeleteAction" scope="prototype" />
+
+    <bean id="beanEmailActiveAction" class="com.eposi.fms.web.email.EmailActiveAction" scope="prototype" />
+    <bean id="beanEmailDisableAction" class="com.eposi.fms.web.email.EmailDisableAction" scope="prototype" />
+
+    <!-- Mail Service -->
+    <bean id="beanFmsMailService" class="com.eposi.fms.services.FmsMailService" scope="session" />
+
+    <!-- CACHE SERVICE -->
+    <!--<bean id="beanHazelcastClientMapAkka" class="com.eposi.fms.services.HazelcastClientMapAkka" init-method="init" destroy-method="shutdown" scope="singleton" />-->
+    <!--<bean id="beanHazelcastCacheClient" class="com.eposi.fms.services.HazelcastCacheClient" init-method="start" destroy-method="shutdown" scope="singleton">-->
+        <!--<property name="addresses">-->
+            <!--<list>-->
+                <!--<value>${fms.hazelcast.address1}</value>-->
+                <!--<value>${fms.hazelcast.address2}</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="username" value="${fms.hazelcast.username}" />-->
+        <!--<property name="password" value="${fms.hazelcast.password}" />-->
+    <!--</bean>-->
+
+    <bean id="beanReportReader" class="com.eposi.fms.persitence.ReportReader" scope="singleton" init-method="init">
+ 		<property name="quorum" value="${konexy.url}" />
+ 	</bean>
+	<!-- DAO -->
+	<bean id="beanFmsDao" class="com.eposi.fms.persitence.FmsDao" scope="singleton" init-method="init" />
+	<bean id="beanDaoUtil" class="com.eposi.common.persitence.DaoUtil" scope="singleton" />
+	<bean id="beanHibernateUtil" class="com.eposi.common.persitence.HibernateUtil" scope="singleton" />
+
+    <!-- XLS -->
+    <bean id="beanReverseGeocodingClient" class="com.eposi.xls.reversegeocoding.client.ReverseGeocodingClient" init-method="start" scope="singleton">
+        <property name="url" value="${xls.url}"/>
+    </bean>
+    <bean id="beanXlsClient" class="com.eposi.fms.services.XlsClient" scope="singleton" />
+    <bean id="beanRWsClient" class="com.eposi.fms.services.RWsClient" init-method="start" scope="singleton">
+        <property name="rootURI"  value="${konexy.url}"></property>
+        <property name="username" value="${konexy.username}"></property>
+        <property name="password" value="${konexy.password}"></property>
+    </bean>
+
+    <bean id="beanPoolingHttpClientConnectionManager" class="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" scope="singleton" destroy-method="shutdown">
+        <property name="maxTotal" value="20"/>
+        <property name="defaultMaxPerRoute" value="50"/>
+        <property name="validateAfterInactivity" value="1000"/>
+    </bean>
+
+    <bean id="idleConnectionMonitorThread"  class="com.eposi.fms.services.IdleConnectionMonitorThread" scope="singleton" init-method="start" destroy-method="shutdown">
+        <constructor-arg name="connMgr" ref="beanPoolingHttpClientConnectionManager"/>
+        <constructor-arg name="idleTimeoutInMS" value="300000"/>
+    </bean>
+
+    <!--<bean id="beanQueueingConsumerReportClient" class="com.eposi.fms.services.QueueingConsumerReportClient" init-method="start" destroy-method="shutdown" scope="singleton">-->
+        <!--<property name="addresses">-->
+            <!--<list>-->
+                <!--<value>${fms.hazelcast.address1}</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="username" value="${fms.amqp.queue.statistics.username}" />-->
+        <!--<property name="password" value="${fms.amqp.queue.statistics.password}" />-->
+        <!--<property name="exchangename" value="${fms.amqp.queue.statistics.exchangename}" />-->
+    <!--</bean>-->
+
+	<!-- DATA SOURCE -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" scope="singleton">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties"><ref bean="hibernateProperties" /></property>
+		<property name="mappingResources">
+			<list>
+                <value>com/eposi/fms/model/Text.hbm.xml</value>
+                <value>com/eposi/fms/model/Vehicle.hbm.xml</value>
+                <value>com/eposi/fms/model/Device.hbm.xml</value>
+				<value>com/eposi/fms/model/Driver.hbm.xml</value>
+				<value>com/eposi/fms/model/Company.hbm.xml</value>
+                <value>com/eposi/fms/model/Address.hbm.xml</value>
+                <value>com/eposi/fms/model/Contract.hbm.xml</value>
+                <value>com/eposi/fms/model/Province.hbm.xml</value>
+                <value>com/eposi/fms/model/District.hbm.xml</value>
+                <value>com/eposi/fms/model/Commune.hbm.xml</value>
+                <value>com/eposi/fms/model/Provider.hbm.xml</value>
+                <value>com/eposi/fms/model/User.hbm.xml</value>
+                <value>com/eposi/fms/model/Stock.hbm.xml</value>
+                <value>com/eposi/fms/model/StockDetail.hbm.xml</value>
+                <value>com/eposi/fms/model/VehicleAggregation.hbm.xml</value>
+                <value>com/eposi/fms/model/Contact.hbm.xml</value>
+
+                <!--Authentication-->
+                <value>com/eposi/fms/model/Permission.hbm.xml</value>
+                <value>com/eposi/fms/model/Group.hbm.xml</value>
+                <value>com/eposi/fms/model/GroupPermission.hbm.xml</value>
+                <value>com/eposi/fms/model/GroupMember.hbm.xml</value>
+                <value>com/eposi/fms/model/GroupGrant.hbm.xml</value>
+
+                <!--Report-->
+                <value>com/eposi/fms/model/Report.hbm.xml</value>
+
+                <!--Catalog-->
+                <value>com/eposi/fms/model/CustomerType.hbm.xml</value>
+                <value>com/eposi/fms/model/ContractType.hbm.xml</value>
+                <value>com/eposi/fms/model/FuelType.hbm.xml</value>
+                <value>com/eposi/fms/model/TransportType.hbm.xml</value>
+                <value>com/eposi/fms/model/Firmware.hbm.xml</value>
+                <value>com/eposi/fms/model/FeedBack.hbm.xml</value>
+                <value>com/eposi/fms/model/ProductType.hbm.xml</value>
+                <value>com/eposi/fms/model/Model.hbm.xml</value>
+                <value>com/eposi/fms/model/Batch.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+    <bean id="hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" scope="singleton">
+        <property name="properties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernatespatial.mysql.MySQLSpatialDialect</prop>
+                <prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.jdbc.batch_size">50</prop>
+                <prop key="hibernate.connection.useUnicode">true</prop>
+                <prop key="hibernate.connection.charSet">utf8</prop>
+                <prop key="hibernate.connection.characterEncoding">utf8</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <!--after_transaction or on_close-->
+                <prop key="hibernate.connection.release_mode">on_close</prop>
+                <prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+                <prop key="hibernate.c3p0.acquire_increment">1</prop>
+                <prop key="hibernate.c3p0.idle_test_period">1800</prop>
+                <prop key="hibernate.c3p0.max_size">100</prop>
+                <prop key="hibernate.c3p0.max_statements">50</prop>
+                <prop key="hibernate.c3p0.min_size">1</prop>
+                <prop key="hibernate.c3p0.timeout">1800</prop>
+                <prop key="hibernate.generate_statistics">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+                <prop key="cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+                <prop key="cache.use_minimal_puts">false</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <!-- DA T A  S O U R C E -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" scope="singleton">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="${mysql.url}" />
+        <property name="user" value="${mysql.username}" />
+        <property name="password" value="${mysql.password}" />
+        <property name="acquireIncrement" value="1" />
+        <property name="minPoolSize" value="3" />
+        <property name="maxPoolSize" value="10" />
+        <property name="maxIdleTime" value="3" />
+    </bean>
+
+
+    <!-- DAO V2-->
+    <bean id="beanFmsV2Dao" class="com.eposi.fms.v2.persitence.FmsV2Dao" scope="singleton" init-method="init" />
+    <bean id="beanDaoUtilV2" class="com.eposi.fms.v2.persitence.DaoUtil" scope="singleton" />
+    <bean id="beanHibernateUtilV2" class="com.eposi.fms.v2.persitence.HibernateUtil" scope="singleton" />
+
+    <!-- DATA SOURCE V2-->
+    <bean id="sessionFactoryV2" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" scope="singleton">
+        <property name="dataSource" ref="dataSourceV2" />
+        <property name="hibernateProperties"><ref bean="hibernatePropertiesV2" /></property>
+        <property name="mappingResources">
+            <list>
+                <value>com/eposi/fms/v2/model/Owner.hbm.xml</value>
+                <value>com/eposi/fms/v2/model/Province.hbm.xml</value>
+                <value>com/eposi/fms/v2/model/TransportType.hbm.xml</value>
+                <value>com/eposi/fms/v2/model/VehicleType.hbm.xml</value>
+                <value>com/eposi/fms/v2/model/User.hbm.xml</value>
+                <value>com/eposi/fms/v2/model/Device.hbm.xml</value>
+                <value>com/eposi/fms/v2/model/DeviceContract.hbm.xml</value>
+                <value>com/eposi/fms/v2/model/DriverCard.hbm.xml</value>
+                <value>com/eposi/fms/v2/model/UserDevice.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="hibernatePropertiesV2" class="org.springframework.beans.factory.config.PropertiesFactoryBean" scope="singleton">
+        <property name="properties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernatespatial.mysql.MySQLSpatialDialect</prop>
+                <prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.jdbc.batch_size">50</prop>
+                <prop key="hibernate.connection.useUnicode">true</prop>
+                <prop key="hibernate.connection.charSet">utf8</prop>
+                <prop key="hibernate.connection.characterEncoding">utf8</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <!--after_transaction or on_close-->
+                <prop key="hibernate.connection.release_mode">on_close</prop>
+                <prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+                <prop key="hibernate.c3p0.acquire_increment">1</prop>
+                <prop key="hibernate.c3p0.idle_test_period">1800</prop>
+                <prop key="hibernate.c3p0.max_size">100</prop>
+                <prop key="hibernate.c3p0.max_statements">50</prop>
+                <prop key="hibernate.c3p0.min_size">1</prop>
+                <prop key="hibernate.c3p0.timeout">1800</prop>
+                <prop key="hibernate.generate_statistics">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+                <prop key="cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+                <prop key="cache.use_minimal_puts">false</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- DA T A  S O U R C E V2-->
+    <bean id="dataSourceV2" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" scope="singleton">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="${mysql.urlV2}" />
+        <property name="user" value="${mysql.usernameV2}" />
+        <property name="password" value="${mysql.passwordV2}" />
+        <property name="acquireIncrement" value="1" />
+        <property name="minPoolSize" value="3" />
+        <property name="maxPoolSize" value="10" />
+        <property name="maxIdleTime" value="3" />
+    </bean>
+
+	<!-- CONFIG -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="/WEB-INF/config.properties" />
+	</bean>
+</beans>

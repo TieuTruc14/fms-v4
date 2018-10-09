@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.fms.model.Company" table="tbl_company">
+		<id column="id" length="25" name="id" type="string">
+			<generator class="assigned" />
+		</id>
+		<property column="name" length="128" name="name" not-null="true" type="string" />
+		<property name="vehicleCount" type="int" column="vehicleCount" />
+		<property name="driverCount" type="int" column="driverCount" />
+		<property name="companyCount" type="int" column="companyCount" />
+		<property name="konexyId" type="string" column="konexyId" />
+		<many-to-one class="com.eposi.fms.model.Company" column="parent" lazy="false" name="parent" not-null="false" not-found="ignore" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Contact" table="tbl_contact">
+        <id name="id" type="int" column="id" >
+            <generator class="increment" />
+        </id>
+        <property name="name" type="string"   column="name" />
+        <property name="position" type="string"   column="position" />
+        <property name="phone" type="string"   column="phone" />
+        <property name="email" type="string"   column="email" />
+        <property name="notify" type="boolean"   column="notify" />
+        <many-to-one name="company"     class="com.eposi.fms.model.Company" lazy="false" column="company" unique="false" not-found="ignore" />
+    </class>
+</hibernate-mapping>

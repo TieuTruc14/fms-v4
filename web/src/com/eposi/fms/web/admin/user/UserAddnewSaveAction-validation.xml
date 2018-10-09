@@ -1,0 +1,31 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+
+<validators>
+    <field name="item.username">
+        <field-validator type="requiredstring">
+            <message>Tên phiếu không được trống.</message>
+        </field-validator>
+    </field>
+    <field name="item.password">
+        <field-validator type="requiredstring">
+            <message>Mật khẩu không được trống.</message>
+        </field-validator>
+    </field>
+    <field name="confirmPassword">
+        <field-validator type="requiredstring">
+            <message>Không để trống trường này.</message>
+        </field-validator>
+    </field>
+   <field name="item.view">
+        <field-validator type="int">
+            <message>Chưa chọn kiểu hiển thị.</message>
+        </field-validator>
+    </field>
+    <field name="item.name">
+        <field-validator type="requiredstring">
+            <message>Chưa nhập tên.</message>
+        </field-validator>
+    </field>
+
+</validators>

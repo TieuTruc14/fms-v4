@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="com.eposi.fms.model.ExpressWay" table="tbl_expressway">
+  <id column="id" name="id" type="java.lang.Integer">
+   <generator class="increment"/>
+  </id>
+  <property column="name" generated="never" lazy="false" name="name"/>
+  <property column="the_geom" generated="never" lazy="false" name="geometry" type="org.hibernatespatial.GeometryUserType"/>
+  <property column="distance" generated="never" lazy="false" name="distance"/>
+  <property column="buffer" generated="never" lazy="false" name="buffer"/>
+  <property column="maxSpeed" generated="never" lazy="false" length="11" name="maxSpeed" type="integer"/>
+ </class>
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Permission" table="tbl_permission">
+        <id name="id" type="string" column="id" length="25">
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string"   column="name" />
+        <property name="description" type="string"   column="description" />
+        <property name="groupGrant" type="string"   column="groupGrant" />
+    </class>
+</hibernate-mapping>

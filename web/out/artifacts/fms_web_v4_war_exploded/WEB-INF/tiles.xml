@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+
+	<definition name="default" template="/WEB-INF/html/layout.default.jsp">
+		<put-attribute name="header" value="/WEB-INF/html/header.jsp" />
+        <put-attribute name="leftpanel" value="/WEB-INF/html/leftpanel.jsp" />
+		<put-attribute name="page" value="/WEB-INF/html/blank.jsp" />
+	</definition>
+
+    <definition name="welcome" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/welcome.jsp" />
+    </definition>
+
+    <definition name="system.error" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/error.jsp" />
+    </definition>
+
+    <!-- REPORT  DN-->
+    <definition name="report.batch.xmit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/reporting/company/batch.xmit.jsp" />
+    </definition>
+
+    <!-- CATALOG -->
+
+    <definition name="catalog.firmware.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/firmware/list.jsp" />
+    </definition>
+    <definition name="catalog.firmware.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/firmware/edit.jsp" />
+    </definition>
+
+    <definition name="catalog.product.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/product/list.jsp" />
+    </definition>
+    <definition name="catalog.product.addnew" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/product/add.jsp" />
+    </definition>
+    <definition name="catalog.product.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/product/edit.jsp" />
+    </definition>
+
+    <definition name="catalog.customer.type.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/customer/list.jsp" />
+    </definition>
+    <definition name="catalog.customer.type.addnew" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/customer/add.jsp" />
+    </definition>
+    <definition name="catalog.customer.type.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/customer/edit.jsp" />
+    </definition>
+
+    <definition name="catalog.contract.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/contract/list.jsp" />
+    </definition>
+    <definition name="catalog.contract.addnew" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/contract/add.jsp" />
+    </definition>
+    <definition name="catalog.contract.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/contract/edit.jsp" />
+    </definition>
+
+    <definition name="catalog.model.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/model/list.jsp" />
+    </definition>
+    <definition name="catalog.model.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/model/add.jsp" />
+    </definition>
+    <definition name="catalog.model.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/model/edit.jsp" />
+    </definition>
+
+    <definition name="catalog.transport.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/transport/list.jsp" />
+    </definition>
+    <definition name="catalog.transport.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/transport/edit.jsp" />
+    </definition>
+
+    <definition name="catalog.fuel.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/fuel/list.jsp" />
+    </definition>
+    <definition name="catalog.fuel.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/catalog/fuel/edit.jsp" />
+    </definition>
+
+
+    <!--User-->
+    <definition name="user.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/user/list.jsp" />
+    </definition>
+    <definition name="user.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/user/edit.jsp" />
+    </definition>
+    <definition name="user.addnew" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/user/addnew.jsp" />
+    </definition>
+    <definition name="change.password" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/user/change.pass.jsp" />
+    </definition>
+	<definition name="user.authority" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/user/authority.jsp" />
+    </definition>
+    <definition name="user.activity" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/user/activity.jsp" />
+    </definition>
+
+    <!--Grant-->
+    <definition name="utility.list.group.grant" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/utility/grant/list.group.jsp" />
+    </definition>
+    <definition name="utility.group.grant" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/utility/grant/grant.jsp" />
+    </definition>
+
+    <!--ORG -->
+    <definition name="org.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/org/organization.list.jsp" />
+    </definition>
+    <definition name="org.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/org/add.jsp" />
+    </definition>
+    <definition name="org.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/org/detail.jsp" />
+    </definition>
+    <definition name="org.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/org/edit.jsp" />
+    </definition>
+
+    <!--Company -->
+    <definition name="company.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/company/list.jsp" />
+    </definition>
+    <definition name="company.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/company/detail.jsp" />
+    </definition>
+    <definition name="company.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/company/add.jsp" />
+    </definition>
+    <definition name="company.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/company/edit.jsp" />
+    </definition>
+    <definition name="company.edit.remove.province" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/company/edit.remove.province.jsp" />
+    </definition>
+    <definition name="company.activity" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/company/activity.jsp" />
+    </definition>
+
+    <!--Device -->
+    <definition name="device.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/list.jsp" />
+    </definition>
+    <definition name="device.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/edit.jsp" />
+    </definition>
+    <definition name="device.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/add.jsp" />
+    </definition>
+    <definition name="device.activity" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/activity.jsp" />
+    </definition>
+    <definition name="device.stock.out.add.device" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/stock/stock.out.add.device.jsp" />
+    </definition>
+    <definition name="device.stock.out" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/stock/stock.out.jsp" />
+    </definition>
+    <definition name="device.stock.out.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/stock/stock.out.detail.jsp" />
+    </definition>
+    <definition name="device.stock.out.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/stock/stock.out.edit.jsp" />
+    </definition>
+
+    <definition name="device.stock.inventory" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/stock/stock.inventory.jsp" />
+    </definition>
+
+    <definition name="device.stock.inventory.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/stock/stock.inventory.detail.jsp" />
+    </definition>
+
+    <definition name="device.stock.recovery" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/stock/stock.recovery.jsp" />
+    </definition>
+
+    <definition name="device.stock.in" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/stock/stock.in.jsp" />
+    </definition>
+    <definition name="device.stock.in.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/stock/stock.in.detail.jsp" />
+    </definition>
+
+    <definition name="device.note" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/device/note.jsp" />
+    </definition>
+
+    <!--Batch -->
+    <definition name="batch.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/batch/list.jsp" />
+    </definition>
+    <definition name="batch.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/batch/edit.jsp" />
+    </definition>
+    <definition name="batch.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/batch/add.jsp" />
+    </definition>
+    <definition name="batch.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/store/batch/batch.detail.jsp" />
+    </definition>
+
+    <!--Vehicle -->
+    <definition name="vehicle.activity" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/vehicle/activity.jsp" />
+    </definition>
+    <definition name="vehicle.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/vehicle/list.jsp" />
+    </definition>
+    <definition name="vehicle.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/vehicle/detail.jsp" />
+    </definition>
+    <definition name="vehicle.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/vehicle/edit.jsp" />
+    </definition>
+    <definition name="vehicle.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/vehicle/add.jsp" />
+    </definition>
+    <definition name="vehicle.change.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/vehicle/edit.change.jsp" />
+    </definition>
+
+    <!--Driver -->
+    <definition name="driver.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/driver/list.jsp" />
+    </definition>
+    <definition name="driver.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/driver/detail.jsp" />
+    </definition>
+    <definition name="driver.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/driver/edit.jsp" />
+    </definition>
+
+    <!--Contact-->
+    <definition name="contact.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/contact/add.jsp" />
+    </definition>
+    <definition name="contact.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/contact/edit.jsp" />
+    </definition>
+    <definition name="contact.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/contact/detail.jsp" />
+    </definition>
+
+    <!--Contract-->
+    <definition name="contract.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/contract/list.jsp" />
+    </definition>
+    <definition name="contract.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/contract/edit.jsp" />
+    </definition>
+    <definition name="contract.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/contract/detail.jsp" />
+    </definition>
+    <definition name="contract.list.censored" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/manage/contract/list.censored.jsp" />
+    </definition>
+
+    <!--Log-->
+    <definition name="log.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/log/log.jsp" />
+    </definition>
+
+    <!--Province -->
+    <definition name="province.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/utility/frontiers/province/list.jsp" />
+    </definition>
+    <definition name="province.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/utility/frontiers/province/detail.jsp" />
+    </definition>
+
+    <!--District -->
+    <definition name="district.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/utility/frontiers/district/list.jsp" />
+    </definition>
+    <definition name="districts.by.province.json">
+        <put-attribute name="page" value="/WEB-INF/html/utility/frontiers/district/lst.json.by.province.jsp" />
+    </definition>
+
+    <!--Commune -->
+    <definition name="commune.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/utility/frontiers/commune/list.jsp" />
+    </definition>
+    <definition name="communes.by.district.json">
+        <put-attribute name="page" value="/WEB-INF/html/utility/frontiers/commune/lstJson.by.district.jsp" />
+    </definition>
+
+    <!--Report -->
+    <definition name="report.nation" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/report/summary.nation.jsp" />
+    </definition>
+
+    <definition name="report.system.activity" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/report/system.activity.jsp" />
+    </definition>
+
+    <definition name="report.summary.xmit.nation" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/report/summary.xmit.nation.jsp" />
+    </definition>
+
+    <definition name="report.summary.xmit.company" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/report/summary.xmit.company.jsp" />
+    </definition>
+
+    <definition name="report.summary.xmit.vehicle" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/report/summary.xmit.vehicle.jsp" />
+    </definition>
+
+    <definition name="report.xmit.vehicle" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/log/detail.xmit.jsp" />
+    </definition>
+
+    <!--FeedBack -->
+    <definition name="feedback.form" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/feedback/form.jsp" />
+    </definition>
+    <definition name="feedback.form.success" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/feedback/form.success.jsp" />
+    </definition>
+    <definition name="feedback.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/utility/feedback/list.jsp" />
+    </definition>
+
+    <!--Text -->
+    <definition name="text.list" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/utility/view/list.jsp" />
+    </definition>
+    <definition name="text.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/utility/view/edit.jsp" />
+    </definition>
+
+    <!--dashboard -->
+    <definition name="dashboard" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/dashboard/dashboard.jsp" />
+    </definition>
+</tiles-definitions> 

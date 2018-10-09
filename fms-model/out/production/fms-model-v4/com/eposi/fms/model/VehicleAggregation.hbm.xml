@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.eposi.fms.model.VehicleAggregation" table="tbl_vehicle_aggregation">
+		<id name="id" type="long" column="id" length="16">
+			<generator class="increment" />
+		</id>
+        <property name="companyId" type="string" column="companyId" not-null="false" lazy="false" unique="false"/>
+        <property name="vehicleCount" type="java.lang.Integer" column="vehicleCount" lazy="false" unique="false" />
+        <property name="inDay" type="java.lang.Integer"    column="inDay" lazy="false" unique="false" />
+        <property name="inWeek" type="java.lang.Integer"   column="inWeek" lazy="false" unique="false" />
+        <property name="inMonth" type="java.lang.Integer"  column="inMonth" lazy="false" unique="false" />
+        <property name="inQuarter" type="java.lang.Integer" column="inQuarter" lazy="false" unique="false" />
+        <property name="inYear" type="java.lang.Integer"    column="inYear" lazy="false" unique="false" />
+
+	</class>
+</hibernate-mapping>

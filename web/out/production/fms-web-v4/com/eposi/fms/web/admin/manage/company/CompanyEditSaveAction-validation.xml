@@ -1,0 +1,25 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+
+<validators>
+    <field name="item.id">
+        <field-validator type="requiredstring">
+            <message>Chưa nhập Mã doanh nghiệp</message>
+        </field-validator>
+    </field>
+    <field name="item.name">
+        <field-validator type="requiredstring">
+            <message>Chưa nhập tên doanh nghiệp</message>
+        </field-validator>
+    </field>
+    <field name="item.province.id">
+        <field-validator type="int">
+            <message>Thông tin Sở GTVT quản lý Doanh nghiệp này bắt buộc phải nhập.</message>
+        </field-validator>
+    </field>
+    <field name="item.parent.id">
+        <field-validator type="requiredstring">
+            <message>Thông tin Chi nhánh/đại lý trực thuộc này không được trống.</message>
+        </field-validator>
+    </field>
+</validators>

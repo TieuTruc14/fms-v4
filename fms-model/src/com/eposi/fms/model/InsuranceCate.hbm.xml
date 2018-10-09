@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 24, 2013 3:09:34 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.InsuranceCate" table="tbl_insurance_cate">
+        <id name="id" type="java.lang.Long" column="id">
+            <generator class="increment" />
+        </id>
+        <property name="name" type="java.lang.String" column="name"/>
+        <property name="fee" type="java.lang.Double" column="fee"/>
+        <property name="maxCompensation" type="java.lang.Double" column="max_compensation"/>
+        <property name="note" type="java.lang.String" column="note"/>
+        <many-to-one name="company" class="com.eposi.fms.model.Company" lazy="false" cascade="none" column="company" unique="false" not-null="false" not-found="ignore" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.v2.model.UserDevice" table="tbl_users_devices">
+        <id name="id" type="long" column="id">
+            <generator class="increment" />
+        </id>
+        <property name="userId"    type ="long" column="user_id"/>
+        <property name="vehicleId" type ="java.lang.String" column="vehicle"/>
+    </class>
+</hibernate-mapping>

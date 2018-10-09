@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.eposi.fms.model.Device" table="tbl_device">
+		<id name="id" type="string" column="id" length="16">
+			<generator class="assigned" />
+		</id>
+        <many-to-one name="vehicle" class="com.eposi.fms.model.Vehicle" lazy="false" cascade="none" column="vehicle" unique="false" not-null="false" not-found="ignore" />
+        <many-to-one name="company" class="com.eposi.fms.model.Company" lazy="false" cascade="none" column="company" unique="false" not-null="false" not-found="ignore" />
+        <property name="dateCreated" type="java.util.Date" column="dateCreated" not-null="false" />
+        <property name="dateUpdated" type="java.util.Date" column="dateUpdated" not-null="false" />
+        <property name="unit" type="java.lang.Integer"   column="unit" />
+        <property name="dateStart" type="java.util.Date" column="dateStart" not-null="false" />
+        <property name="dateActive" type="java.util.Date" column="dateActive" not-null="false" />
+        <property name="dateEnd" type="java.util.Date"   column="dateEnd" not-null="false" />
+        <property name="stock" type="boolean"   column="stock" not-null="false" />
+        <many-to-one name="fwv" class="com.eposi.fms.model.Firmware" lazy="false" cascade="none" column="fwv" unique="false" not-null="false" not-found="ignore" />
+        <many-to-one name="batch" class="com.eposi.fms.model.Batch" lazy="false" cascade="none" column="batch" unique="false" not-null="false" not-found="ignore" />
+        <property name="product_key" type="string" column="product_key" />
+        <property name="userCreated" type="string" column="userCreated" />
+        <property name="userUpdated" type="string" column="userUpdated" />
+        <property name="disable" type="boolean" column="disable" />
+        <property name="konexyId" type="string" column="konexyId" />
+        <property name="description" type="string" column="description" />
+	</class>
+</hibernate-mapping>

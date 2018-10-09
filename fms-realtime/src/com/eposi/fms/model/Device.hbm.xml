@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.eposi.fms.model.Device" table="tbl_device">
+		<id name="id" type="string" column="id" length="16">
+			<generator class="assigned" />
+		</id>
+        <many-to-one name="batch" class="com.eposi.fms.model.Batch" lazy="false" cascade="none" column="batch" unique="false" not-null="false" not-found="ignore" />
+        <property name="konexyId" type="string" column="konexyId" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+
+<validators>
+    <field name="vehicleId">
+        <field-validator type="requiredstring">
+            <message>Chưa nhập biển mới</message>
+        </field-validator>
+    </field>
+    <field name="note">
+        <field-validator type="requiredstring">
+            <message>Chưa nhập lý do</message>
+        </field-validator>
+    </field>
+</validators>

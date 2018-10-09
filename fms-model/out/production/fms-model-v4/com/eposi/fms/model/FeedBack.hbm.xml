@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.FeedBack" table="tbl_feedback">
+        <id name="id" type="long" column="id">
+            <generator class="increment" />
+        </id>
+        <many-to-one name="company" class="com.eposi.fms.model.Company" lazy="false" cascade="none" column="company" unique="false" not-null="false" not-found="ignore" />
+        <property name="content"      type="text"    column="content" />
+        <property name="username"     type="string"    column="username"  />
+        <property name="dateCreated"  type="java.util.Date"    column="dateCreated"  />
+        <property name="ipClient"     type="java.lang.String"    column="ipClient"  />
+    </class>
+</hibernate-mapping>

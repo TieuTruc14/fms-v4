@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Model" table="tbl_model">
+        <id name="id" type="string" column="id" length="16">
+            <generator class="assigned" />
+        </id>
+        <property name="note" type="string"   column="note" />
+        <property name="name" type="string"   column="name" />
+        <many-to-one name="productType" class="com.eposi.fms.model.ProductType" lazy="false" cascade="none" column="productType" unique="false" not-null="false" not-found="ignore" />
+        <property name="companyId"   type="string"     column="companyId" />
+        <property name="global"      type="boolean"    column="global" />
+        <property name="userCreated" type="string"   column="userCreated" />
+        <property name="userUpdate"  type="string"    column="userUpdate" />
+        <property name="dateCreated" type="java.util.Date" column="dateCreated" not-null="false" />
+        <property name="dateUpdate" type="java.util.Date" column="dateUpdate" not-null="false" />
+    </class>
+</hibernate-mapping>

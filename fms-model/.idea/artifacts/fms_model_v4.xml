@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="fms-model-v4">
+    <output-path>$PROJECT_DIR$/out/artifacts/fms_model_v4</output-path>
+    <root id="archive" name="fms-model-v4.jar">
+      <element id="module-output" name="fms-model-v4" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

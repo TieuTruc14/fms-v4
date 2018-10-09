@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.ProductType" table="tbl_product_type">
+        <id name="id" type="string" column="id" length="25">
+            <generator class="assigned" />
+        </id>
+        <property name="name"       type="string"  column="name" length="128"/>
+        <property name="companyId"   type="string"     column="companyId" />
+        <property name="location"   type="string"  column="location" length="3"/>
+        <property name="brand"      type="string"  column="brand" length="10"/>
+        <property name="branch"     type="string"  column="branch" length="10"/>
+        <property name="groupId"      type="string"  column="groupId" length="10"/>
+        <property name="note"       type="string"  column="note" length="250" />
+        <property name="userCreated" type="string" column="userCreated" unique="false"/>
+        <property name="userUpdated" type="string" column="userUpdated" unique="false"/>
+        <property name="dateCreated" type="java.util.Date" column="dateCreated" not-null="false" />
+        <property name="dateUpdated" type="java.util.Date" column="dateUpdated" not-null="false" />
+        <property name="type"        type="int" column="type" />
+        <property name="global"      type="boolean"    column="global" />
+
+    </class>
+</hibernate-mapping>

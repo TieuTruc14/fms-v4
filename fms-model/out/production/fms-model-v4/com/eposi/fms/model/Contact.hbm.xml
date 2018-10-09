@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Contact" table="tbl_contact">
+        <id name="id" type="int" column="id" >
+            <generator class="increment" />
+        </id>
+        <property name="name" type="string"   column="name" />
+        <property name="position" type="string"   column="position" />
+        <property name="phone" type="string"   column="phone" />
+        <property name="email" type="string"   column="email" />
+        <many-to-one name="company"     class="com.eposi.fms.model.Company" lazy="false" column="company" unique="false" not-found="ignore" />
+        <property name="note" type="string"   column="note" />
+        <property name="userCreated" type="string" column="userCreated" unique="false"/>
+        <property name="userUpdated" type="string" column="userUpdated" unique="false"/>
+        <property name="dateCreated" type="java.util.Date" column="dateCreated" not-null="false" />
+        <property name="dateUpdated" type="java.util.Date" column="dateUpdated" not-null="false" />
+    </class>
+</hibernate-mapping>

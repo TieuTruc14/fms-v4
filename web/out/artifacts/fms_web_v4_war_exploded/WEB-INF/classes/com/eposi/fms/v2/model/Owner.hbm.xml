@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.eposi.fms.v2.model.Owner" table="tbl_owner">
+		<id name="id" type="long" column="id">
+			<generator class="increment"/>
+		</id>
+		
+		<property name="code" column="code" unique="true" />
+		
+		<property name="name" column="name" />
+		<property name="note" type="text" column="note" />
+		<property name="lat" column="lat" type="string" />
+		<property name="lng" column="lng" type="string"/>
+		<property name="img" column="img" type="string"/>
+		<property name="typeOwner" type="int" column="owner_type" />	
+		<property name="operatingStatus" type="int" column="operating_status" > 
+			<meta attribute="default-value">1</meta>
+		</property>
+		
+		<!-- Update 14.10.2013 -->
+		<many-to-one name="province" class="com.eposi.fms.v2.model.Province" lazy="false" column="pID" unique="false" not-found="ignore" />
+		<!-- Update 14.10.2013 -->
+		
+		<many-to-one name="parent" class="com.eposi.fms.v2.model.OrganizationUnit" lazy="false" cascade="all" column="parent" unique="false" />
+		
+		<joined-subclass name="com.eposi.fms.v2.model.OrganizationUnit"  table="tbl_organization" >
+			<key column="id" />
+			<property name="allowedChild" type="boolean" column="allowedChild" />
+		</joined-subclass>
+
+		<joined-subclass name="com.eposi.fms.v2.model.Customer" table="tbl_customer" >
+			<key column="id" />
+		</joined-subclass>
+	</class>
+</hibernate-mapping>

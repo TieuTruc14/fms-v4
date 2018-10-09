@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Registration" table="tbl_registration">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="vehicle" class="com.eposi.fms.model.Vehicle" lazy="false" cascade="none" column="vehicle" unique="false" not-null="false" not-found="ignore" />
+        <many-to-one name="company" class="com.eposi.fms.model.Company" lazy="false" cascade="none" column="company" unique="false" not-null="false" not-found="ignore" />
+        <property name="regNumber" type="java.lang.String">
+            <column name="reg_number" />
+        </property>
+        <property name="unit" type="java.lang.String">
+            <column name="unit" />
+        </property>
+        <property name="dateReg" type="java.util.Date">
+            <column name="date_reg" />
+        </property>
+        <property name="dateExpired" type="java.util.Date">
+            <column name="date_expired" />
+        </property>
+        <property name="fee" type="java.lang.Double">
+            <column name="fee" />
+        </property>
+        <property name="note" type="java.lang.String">
+            <column name="note" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.User" table="tbl_user">
+        <id name="username" type="string" column="username" length="25">
+            <generator class="assigned" />
+        </id>
+		<property name="password" type="string" column="password" />
+        <property name="name"     type="string" column="name" />
+        <property name="phone"    type="string" column="phone" />
+        <property name="level"    type="int"    column="level" />
+        <property name="view"     type="int"    column="view" />
+        <many-to-one name="company" class="com.eposi.fms.model.Company" lazy="false" column="company" not-null="false" not-found="ignore" />
+        <property name="supperUser"   not-null="true"  type="boolean"    column="supperUser" />
+        <property column="enable" lazy="false" name="enable" not-null="true" type="boolean">
+            <meta attribute="default-value">true</meta>
+        </property>
+        <property name="konexyId" type="string" column="konexyId" />
+    </class>
+</hibernate-mapping>

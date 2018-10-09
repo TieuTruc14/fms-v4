@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Group" table="tbl_group">
+        <id name="id" type="string" column="id" length="25">
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string"   column="name" />
+        <property name="description" type="string"   column="description" />
+        <property name="userCreated" type="string"   column="userCreated" />
+        <property name="userUpdated" type="string"   column="userUpdated" />
+        <property name="dateCreated"    type="java.util.Date"    column="dateCreated" />
+        <property name="dateUpdated"       type="java.util.Date"  column="dateUpdated" />
+    </class>
+</hibernate-mapping>

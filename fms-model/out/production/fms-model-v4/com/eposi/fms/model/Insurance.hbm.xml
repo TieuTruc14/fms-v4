@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 24, 2013 3:09:34 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Insurance" table="tbl_insurance">
+        <id name="id" type="java.lang.Long" column="id">
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cate" class="com.eposi.fms.model.InsuranceCate" lazy="false" cascade="none" column="cate" unique="false" not-null="false" not-found="ignore" />
+        <many-to-one name="vehicle" class="com.eposi.fms.model.Vehicle" lazy="false" cascade="none" column="vehicle" unique="false" not-null="false" not-found="ignore" />
+        <many-to-one name="company" class="com.eposi.fms.model.Company" lazy="false" cascade="none" column="company" unique="false" not-null="false" not-found="ignore" />
+        <property name="contractNo" type="java.lang.String" column="contract_no"/>
+        <property name="fee"     type="java.lang.Double" column="fee"/>
+        <property name="unit"    type="java.lang.String" column="unit"/>
+        <property name="contact" type="java.lang.String" column="contact"/>
+        <property name="dateBuy" type="java.util.Date" column="date_buy"/>
+        <property name="dateExpired" type="java.util.Date" column="date_expired"/>
+        <property name="note" type="java.lang.String" column="note"/>
+        <property name="status" type="int" column="status"/>
+
+    </class>
+</hibernate-mapping>

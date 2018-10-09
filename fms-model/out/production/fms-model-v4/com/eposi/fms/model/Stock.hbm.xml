@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Stock" table="tbl_stock">
+        <id name="id" type="long" column="id" length="16">
+            <generator class="increment" />
+        </id>
+        <property name="name"      type="string" column="name" />
+        <many-to-one name="companySource" class="com.eposi.fms.model.Company" lazy="false" cascade="none" column="companySource" unique="false" not-null="false" not-found="ignore" />
+        <many-to-one name="companyDes" class="com.eposi.fms.model.Company" lazy="false" cascade="none" column="companyDes" unique="false" not-null="false" not-found="ignore" />
+        <property name="dateCreated"    type="java.util.Date"    column="dateCreated" />
+        <property name="userCreated" type="java.lang.String" column="userCreated"/>
+        <property name="userUpdate"  type="java.lang.String" column="userUpdate"/>
+        <property name="dateUpdate"  type="java.util.Date"    column="dateUpdate" />
+        <property name="note"        type="text" column="note"/>
+        <property name="status"      type="int" column="status"/>
+    </class>
+</hibernate-mapping>

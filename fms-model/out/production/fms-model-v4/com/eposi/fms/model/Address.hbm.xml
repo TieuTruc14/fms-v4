@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Address" table="tbl_address">
+        <id name="id" type="long" column="id">
+            <generator class="increment" />
+        </id>
+        <property name="no" type="string"   column="no" />
+        <many-to-one name="commune"     class="com.eposi.fms.model.Commune" lazy="false" column="commune" unique="false" not-found="ignore" />
+        <many-to-one name="district"     class="com.eposi.fms.model.District" lazy="false" column="district" unique="false" not-found="ignore" />
+        <many-to-one name="province"     class="com.eposi.fms.model.Province" lazy="false" column="province" unique="false" not-found="ignore" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <bean id="beanServer" class="com.eposi.fms.Server" scope="singleton"/>
+
+    <!-- Mail -->
+    <bean id="beanFmsMailService" class="com.eposi.fms.services.FmsMailService" scope="singleton"/>
+
+    <!-- DAO -->
+    <bean id="beanFmsDao" class="com.eposi.fms.persitence.FmsDao" scope="singleton" init-method="init" />
+    <bean id="beanDaoUtil" class="com.eposi.common.persitence.DaoUtil" scope="singleton" />
+    <bean id="beanHibernateUtil" class="com.eposi.common.persitence.HibernateUtil" scope="singleton" />
+
+    <!-- Hazelcast -->
+    <bean id="beanHazelcastClientMapAkka" class="com.eposi.fms.services.HazelcastClientMapAkka" init-method="init" scope="singleton" />
+    <bean id="beanHazelcastCacheClient" class="com.eposi.fms.services.HazelcastCacheClient"  init-method="start" scope="singleton">
+        <property name="addresses">
+            <list>
+                <value>${fms.hazelcast.address1}</value>
+                <value>${fms.hazelcast.address2}</value>
+            </list>
+        </property>
+        <property name="username" value="${fms.hazelcast.username}" />
+        <property name="password" value="${fms.hazelcast.password}" />
+    </bean>
+
+    <!--XLS-->
+    <bean id="beanReverseGeocodingClient" class="com.eposi.xls.reversegeocoding.client.ReverseGeocodingClient" scope="singleton" init-method="start" destroy-method="shutdown" >
+        <property name="url" value="${xls.reversegeocoding.url}" />
+    </bean>
+    <bean id="beanXlsClient" class="com.eposi.fms.services.XlsClient" scope="singleton" init-method="init"/>
+
+    <!-- Rest Client -->
+    <bean id="beanRWsClient" class="com.eposi.fms.rest.client.RWsClient" scope="singleton" init-method="start">
+        <property name="mgr" ref="beanPoolingHttpClientConnectionManager"/>
+        <property name="rootURI" value="${rws.rootURI}"/>
+        <property name="port" value="${rws.port}"/>
+        <property name="username" value="${rws.username}"/>
+        <property name="password" value="${rws.password}"/>
+    </bean>
+
+    <bean id="beanPoolingHttpClientConnectionManager" class="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" scope="singleton" destroy-method="shutdown">
+        <property name="maxTotal" value="200"/>
+        <property name="defaultMaxPerRoute" value="100"/>
+        <property name="validateAfterInactivity" value="1000"/>
+    </bean>
+
+    <bean id="idleConnectionMonitorThread"  class="com.eposi.fms.rest.client.IdleConnectionMonitorThread" scope="singleton" init-method="start" destroy-method="shutdown">
+        <constructor-arg name="connMgr" ref="beanPoolingHttpClientConnectionManager"/>
+        <constructor-arg name="idleTimeoutInMS" value="300000"/>
+    </bean>
+
+    <!-- DATA SOURCE -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" scope="singleton">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties"><ref bean="hibernateProperties" /></property>
+        <property name="mappingResources">
+            <list>
+                <value>com/eposi/fms/model/Vehicle.hbm.xml</value>
+                <value>com/eposi/fms/model/Company.hbm.xml</value>
+                <value>com/eposi/fms/model/Contact.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" scope="singleton">
+        <property name="properties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernatespatial.mysql.MySQLSpatialDialect</prop>
+                <prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.connection.useUnicode">true</prop>
+                <prop key="hibernate.connection.charSet">utf8</prop>
+                <prop key="hibernate.connection.characterEncoding">utf8</prop>
+
+                <prop key="hibernate.c3p0.minPoolSize">10</prop>
+                <prop key="hibernate.c3p0.maxPoolSize">10</prop>
+                <prop key="hibernate.c3p0.timeout">0</prop>
+                <prop key="hibernate.c3p0.max_statement">50</prop>
+                <prop key="hibernate.c3p0.idle_test_period">300</prop>
+
+                <prop key="hibernate.c3p0.testConnectionOnCheckout">false</prop>
+
+                <!-- Config 2nd level cache -->
+                <prop key="hibernate.generate_statistics">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- DA T A  S O U R C E -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" scope="singleton">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${mysql.url}" />
+        <property name="username" value="${mysql.username}" />
+        <property name="password" value="${mysql.password}" />
+        <property name="initialSize" value="10" />
+        <property name="maxActive" value="10" />
+        <property name="maxIdle" value="10" />
+        <property name="validationQuery" value="SELECT 1"/>
+        <property name="testOnBorrow" value="true"/>
+    </bean>
+
+	<!-- CONFIG -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="src/config.properties" />
+	</bean>
+</beans>

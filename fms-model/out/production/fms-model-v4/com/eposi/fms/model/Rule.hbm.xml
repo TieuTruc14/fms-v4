@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.Rule" table="tbl_position_rule">
+        <id name="id" type="long" column="id">
+			<generator class="increment" />
+		</id>
+
+		<property  name="name"       type="java.lang.String"  column="name"/>
+		<property  name="timeInside" type="long" column ="timeInside"/>
+		<property  name="stop"       type="int"  column ="stop"/>
+		<property  name="turnOff"    type="int" column="turnOff"/>
+		<property  name="openDoor"   type="int" column="openDoor"/>
+		<property  name="timeStop"   type="long" column="timeStop"/>
+		<property  name="timeOnVelocity" type="long" column="timeOnVelocity"/>
+		<property  name="velocity" type="int" column="velocity"/>
+		<many-to-one name="company" class="com.eposi.fms.model.Company" lazy="false" column="company" unique="false" />
+    </class>
+</hibernate-mapping>

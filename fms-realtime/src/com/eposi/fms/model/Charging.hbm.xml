@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 22, 2013 2:33:46 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="com.eposi.fms.model.Charging" table="tbl_charging">
+  <id name="id" type="long" column="id">
+    <generator class="increment"/>
+  </id>
+  <property  lazy="false" name="name" type="java.lang.String" column="name"/>
+  <property  lazy="false" name="address" type="java.lang.String" column="address"/>
+  <property  lazy="false" name="x" type="double" column="x"/>
+  <property  lazy="false" name="y" type="double" column="y"/>
+ </class>
+</hibernate-mapping>

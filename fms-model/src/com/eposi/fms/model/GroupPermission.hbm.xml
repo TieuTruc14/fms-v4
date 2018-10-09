@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.eposi.fms.model.GroupPermission" table="tbl_group_permission">
+        <composite-id>
+            <key-property name="groupid"       column="groupid"  length="25" />
+            <key-property name="permissionId"  column="permissionId" length="25" />
+        </composite-id>
+    </class>
+</hibernate-mapping>

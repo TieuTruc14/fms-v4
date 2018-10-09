@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <bean id="beanServer" class="com.eposi.fms.Server" scope="singleton"/>
+    <bean id="beanAggregationWindowProcessor" class="com.eposi.fms.AggregationWindowProcessor" init-method="init"  scope="singleton"/>
+    <bean id="beanRealtimeExecutor" class="com.eposi.fms.RealtimeExecutor" init-method="init"  scope="singleton">
+        <property name="poolSize" value="${fms.executor.poolSize}" />
+        <property name="maxMsgPerVehicle" value="${fms.executor.maxMsgPerVehicle}" />
+        <property name="msxMsgProcessingCurrent" value="${fms.executor.msxMsgProcessingCurrent}" />
+    </bean>
+
+    <!-- DATA LOGGING -->
+    <bean id="beanReportFileStore" class="com.eposi.fms.services.ReportFileStore" scope="singleton" init-method="init"/>
+
+    <!-- Rest Client -->
+    <bean id="beanRWsClient" class="com.eposi.fms.rest.client.RWsClient" scope="singleton" init-method="start">
+        <property name="mgr" ref="beanPoolingHttpClientConnectionManager"/>
+        <property name="rootURI" value="${rws.rootURI}"/>
+        <property name="port" value="${rws.port}"/>
+        <property name="username" value="${rws.username}"/>
+        <property name="password" value="${rws.password}"/>
+    </bean>
+
+    <bean id="beanPoolingHttpClientConnectionManager" class="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" scope="singleton" destroy-method="shutdown">
+        <property name="maxTotal" value="200"/>
+        <property name="defaultMaxPerRoute" value="100"/>
+    </bean>
+
+    <bean id="idleConnectionMonitorThread"  class="com.eposi.fms.rest.client.IdleConnectionMonitorThread" scope="singleton" init-method="start" destroy-method="shutdown">
+        <constructor-arg name="connMgr" ref="beanPoolingHttpClientConnectionManager"/>
+        <constructor-arg name="idleTimeoutInMS" value="600000"/>
+    </bean>
+
+    <!-- AMQP -->
+    <bean id="beanQueueingConsumerClient" class="com.eposi.fms.services.QueueingConsumerClient" init-method="start" destroy-method="shutdown" scope="singleton">
+        <property name="addresses">
+            <list>
+                <value>${fms.amqp.queue.statistics.address}</value>
+            </list>
+        </property>
+        <property name="username" value="${fms.amqp.queue.statistics.username}" />
+        <property name="password" value="${fms.amqp.queue.statistics.password}" />
+        <property name="queuename" value="${fms.amqp.queue.statistics.queuename}" />
+    </bean>
+
+    <!--XLS-->
+    <bean id="beanReverseGeocodingClient" class="com.eposi.xls.reversegeocoding.client.ReverseGeocodingClient" scope="singleton" init-method="start" destroy-method="shutdown" >
+        <property name="url" value="${xls.reversegeocoding.url}" />
+    </bean>
+    <bean id="beanXlsClient" class="com.eposi.fms.services.XlsClient" scope="singleton" init-method="init"/>
+
+    <bean name="log4jLogger" class="org.apache.log4j.Logger" factory-method="getRootLogger"></bean>
+    <bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
+        <property name="targetMethod" value="initLogging" />
+        <property name="arguments">
+            <list>
+                <value>src/log4j.properties</value>
+            </list>
+        </property>
+    </bean>
+
+	<!-- CONFIG -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="src/config.properties" />
+	</bean>
+</beans>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.fms.model.Company" table="tbl_company">
+		<id column="id" length="25" name="id" type="string">
+			<generator class="assigned" />
+		</id>
+		<property column="name" length="128" name="name" not-null="true" type="string" />
+		<property column="code" length="128" name="code" type="string" />
+		<property column="email" length="50" name="email" type="string" />
+		<property column="url" length="100" name="url" type="string" />
+		<property column="phone" name="phone" type="string" />
+		<many-to-one class="com.eposi.fms.model.Province" column="provinceID" lazy="false" name="province" not-null="false" not-found="ignore"  />
+		<many-to-one class="com.eposi.fms.model.Address" column="address" lazy="false" name="address" not-null="false" not-found="ignore"  />
+		<many-to-one class="com.eposi.fms.model.CustomerType" column="customerType" lazy="false" name="customerType" not-null="false" not-found="ignore" />
+        <property name="vehicleCount" type="int" column="vehicleCount" />
+        <property name="driverCount" type="int" column="driverCount" />
+		<property name="companyCount" type="int" column="companyCount" />
+        <property name="note" type="string" column="note" unique="false"/>
+        <property name="userCreated" type="string" column="userCreated" unique="false"/>
+        <property name="userUpdated" type="string" column="userUpdated" unique="false"/>
+        <property name="dateCreated" type="java.util.Date" column="dateCreated" not-null="false" />
+        <property name="dateUpdated" type="java.util.Date" column="dateUpdated" not-null="false" />
+        <many-to-one class="com.eposi.fms.model.Company" column="parent" lazy="false" name="parent" not-null="false" not-found="ignore" />
+        <property name="orgazation" type="boolean" column="orgazation" not-null="true"/>
+		<property name="konexyId" type="string" column="konexyId" />
+		<property name="aggregation" type="string" column="aggregation" />
+		<property name="prefix" type="string"   column="prefix" />
+		<property name="owner" type="long"     column="owner" />
+		<property name="status" type="int" 	   column="status" />
+		<property name="inforLocked" type="boolean" column="inforLocked" not-null="true">
+			<meta attribute="default-value">false</meta>
+		</property>
+	</class>
+</hibernate-mapping>

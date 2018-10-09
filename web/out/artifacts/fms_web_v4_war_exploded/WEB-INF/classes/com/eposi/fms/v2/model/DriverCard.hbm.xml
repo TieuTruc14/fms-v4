@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.eposi.fms.v2.model.DriverCard" table="tbl_driver_cards">
+        <id name="driverKey" type="string" length="32" column="driver_key">
+            <generator class="assigned" />
+        </id>
+        <property name="defaultVehicle" unique="true" column="defaultVehicle" />
+        <many-to-one name="owner" class="com.eposi.fms.v2.model.Owner" lazy="false" column="owner" unique="false" />
+        <property name="name" column="driver_name" />
+        <property name="dateOfBirth" column="date_of_birth" />
+        <property name="address" column="address" />
+        <property name="phone" column="phone" />
+        <property name="licenseNumber" column="license_number" />
+        <property name="type" column="type" />
+        <property name="dateExper" type="date" column="date_exper" />
+        <property name="dateOfGrant" type="date" column="date_of_grant" />
+        <property name="enable" type="boolean" column="enable" />
+        <property name="note" type="text" column="note" />
+        <property name="autogenkeyId" type="int" column="autogenkey_id" not-null="true">
+            <meta attribute="default-value">0</meta>
+        </property>
+    </class>
+
+</hibernate-mapping>
